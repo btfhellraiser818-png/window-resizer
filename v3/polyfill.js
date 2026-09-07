@@ -123,7 +123,8 @@ if (typeof window === 'object' && typeof screen === 'object') {
         return Reflect.apply(target, self, args).then(async win => {
           pending.add(id);
           try {
-            await new Promise(r => setTimeout(r, 150)); // X11 geometry settles async
+            // https://github.com/brian-girko/window-resizer/issues/11#issuecomment-5562857423
+            // await new Promise(r => setTimeout(r, 150)); // X11 geometry settles async
             const now = await chrome.windows.get(id);
             const off = Math.abs(now.left - updateInfo.left) + Math.abs(now.top - updateInfo.top) +
               Math.abs(now.width - updateInfo.width) + Math.abs(now.height - updateInfo.height);
