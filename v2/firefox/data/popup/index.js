@@ -1,30 +1,30 @@
 /* globals Sortable */
 'use strict';
 
-// Firefox polyfill
+// Firefox has no system.display API. The popup is attached to the current
+// window, so its `screen` is the monitor that window is on. Report just that
+// one display instead of a duplicate entry from the background page.
 chrome.system = chrome.system || {
   display: {
     getInfo(flags, callback) {
-      Promise.all([
-        new Promise(resolve => setTimeout(() => resolve(screen), 200)),
-        new Promise(resolve => chrome.runtime.getBackgroundPage(bg => {
-          resolve(bg.screen);
-        }))
-      ]).then(([a, b]) => {
-        callback([a, b].map(a => {
-          const obj = {};
-          Object.assign(obj, {
-            width: a.availWidth,
-            height: a.availHeight,
-            top: a.availTop,
-            left: a.availLeft
-          });
-          return {
-            bounds: obj,
-            workArea: obj
-          };
-        }));
-      });
+      // wait a moment so the popup is placed on its final monitor
+      setTimeout(() => {
+        const workArea = {
+          width: screen.availWidth,
+          height: screen.availHeight,
+          top: screen.availTop,
+          left: screen.availLeft
+        };
+        callback([{
+          bounds: {
+            width: screen.width,
+            height: screen.height,
+            top: screen.top || 0,
+            left: screen.left || 0
+          },
+          workArea
+        }]);
+      }, 100);
     }
   }
 };

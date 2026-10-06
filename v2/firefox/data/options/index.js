@@ -35,16 +35,6 @@ document.getElementById('reset').addEventListener('click', e => {
   }
 });
 
-// preview
-document.getElementById('preview').addEventListener('click', () => chrome.tabs.create({
-  url: 'https://www.youtube.com/watch?v=Oq4vTTLGWuY'
-}));
-
-// support
-document.getElementById('support').addEventListener('click', () => chrome.tabs.create({
-  url: chrome.runtime.getManifest().homepage_url + '?rd=donate'
-}));
-
 // unset
 document.getElementById('unset').addEventListener('click', () => {
   r.top.value = '';

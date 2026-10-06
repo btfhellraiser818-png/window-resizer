@@ -1,11 +1,22 @@
 {
   "manifest_version": 2,
-  "version": "0.1.6",
+  "version": "0.1.7",
   "name": "Window Resizer",
   "description": "Resize and align the CURRENT layout to the predefined position with multi monitor support",
-
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "window-resizer@btfhellraiser818-png",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
   "permissions": [
-    "storage"
+    "storage",
+    "activeTab"
   ],
   "icons": {
     "16": "data/icons/16.png",
@@ -21,7 +32,7 @@
   "browser_action": {
     "default_popup": "data/popup/index.html"
   },
-  "homepage_url": "https://add0n.com/window-resizer.html",
+  "homepage_url": "https://github.com/btfhellraiser818-png/window-resizer",
   "background": {
     "persistent": false,
     "scripts": [
@@ -39,14 +50,13 @@
       "description": "Use the third popup alignment to adjust the current window size"
     },
     "layout-3": {
-      "description": "Use the forth popup alignment to adjust the current window size"
+      "description": "Use the fourth popup alignment to adjust the current window size"
     },
     "layout-4": {
       "description": "Use the fifth popup alignment to adjust the current window size"
     }
   },
   "options_ui": {
-    "page": "data/options/index.html",
-    "chrome_style": true
+    "page": "data/options/index.html"
   }
 }
